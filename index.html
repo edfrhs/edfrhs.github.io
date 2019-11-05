@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+</body>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script type="text/javascript">
+//获取url中的参数
+function getQueryString(name) {
+    let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    let r = window.location.search.substr(1).match(reg);
+    if (r != null) {
+        return unescape(r[2]);
+    };
+    return null;
+ }
+var openUrl=getQueryString('open_url')
+if(!openUrl){
+	alert('系统出现问题')
+}else{
+    var log=function (obj) {
+        console.log(obj);
+    }
+    $.getJSON('https://short.huanghanlian.com/getGoShortUrl?id='+openUrl+'&callback=?',function (data) {
+        if(!data.success){
+            alert('出现异常')
+        }else{
+            location.replace(data.data);
+        }
+    });
+}
+</script>
+</html>
